@@ -15,6 +15,6 @@ That'll be the first thing on my TODO list for when I continue.
 
 
 TODO:
-Fix cross-entropy
+Fix cross-entropy (issue most likely lies in the calculation for error in layers obviously where else could it be mr obvious)
 Add regularization and dropout if its still overfitting weirdly
 Cry
