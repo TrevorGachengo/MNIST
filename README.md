@@ -1,4 +1,4 @@
-#  2-Layer Neural Network   MNIST Database 
+#  2-Layer Neural Network From Scratch  | MNIST Database 
 
 ## Contents / how it works
 _to be added_
