@@ -2,10 +2,10 @@
 - create missing folders when doing anything directory related
 
 ## Some parameters
-- Sigmoid | No deskewing \n
-    50 HU | Batch size = 50
-    Learning rate = 1e-4 Adam
-    Accuracy: 95.14% after 100 epochs
+- Sigmoid | No deskewing
+    > 50 HU | Batch size = 50
+    > Learning rate = 1e-4 Adam
+    > Accuracy: 95.14% after 100 epochs
 
 - Sigmoid | No deskewing
     50 HU | Batch size = 50
