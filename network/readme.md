@@ -20,7 +20,7 @@ To train the network use the epoch function which takes in 5 parameters:
 
 ## Saving and Loading parameters
 To use the network without having to train it again, use save_parameters() and load_parameters() accordingly.
-save_parameters() will create a folder of numpy arrays under \network\data\ called trained_parameters.
+save_parameters() will create a folder of numpy arrays under "\network\data\" called trained_parameters.
 
 ## Tested Parameters
 No deskewing: 
