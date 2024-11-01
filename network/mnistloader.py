@@ -1,6 +1,5 @@
 import numpy as np
 
-
 def mnist(deskew=True):
     '''
     :desc Loads the MNIST dataset
