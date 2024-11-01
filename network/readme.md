@@ -18,6 +18,10 @@ To train the network use the epoch function which takes in 5 parameters:
 - Display: boolean to decide to display the network training or only have it output the final accuracy 
 
 
+## Saving and Loading parameters
+To use the network without having to train it again, use save_parameters() and load_parameters() accordingly.
+save_parameters() will create a folder of numpy arrays under \network\data\ called trained_parameters.
+
 ## Tested Parameters
 No deskewing: 
   - 300 HU,  Batch size = 50, Learning rate = 1e-4, Accuracy: 98.15%
