@@ -1,5 +1,5 @@
-# to do
-- create missing folders when doing anything directory related
+# How to use the network
+
 
 ## Tested Parameters
 - Sigmoid, No deskewing, 300 HU,  Batch size = 50, Learning rate = 1e-4, Accuracy: 98.15%
