@@ -4,7 +4,6 @@ import numpy as np
 import sys
 from scipy.ndimage import affine_transform
 
-
 '''
 This file extracts the training and test data from the original mnist file and save them.
 It will also save copies of the deskewed data. 
@@ -36,14 +35,11 @@ def mnist(deskew):
         train_data = train_data / np.max(train_data)
         test_data = test_data / np.max(test_data)
 
-
-
     train_labels = train_labels.reshape((60000, 1))
     test_labels = test_labels.reshape((10000, 1))
 
     train = compact_data_labels(train_data, train_labels)
     test = compact_data_labels(test_data, test_labels)
-
     return train, test
 
 def reshape784(x):
@@ -89,11 +85,6 @@ def deskewAll(X):
     for i in range(len(X)):
         currents.append(deskew(X[i].reshape(28, 28)).flatten())
     return np.array(currents)
-
-
-
-
-
 
 train, test = mnist(deskew=False)
 np.save('network/data/train_data.npy', train)
