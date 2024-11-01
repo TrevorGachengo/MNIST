@@ -1,9 +1,14 @@
 # How to use the network
 ## Loading the dataset
 Start by running the deskewer.py. This file will extract the training and test from the entire dataset file mnist.pkl.gz. It saves copies of the default data and deskewed data.
+In your main.py call the mnist function from the mnistloader to load the data that you want. True for deskewed and false for default.
 
-## Initializing the network
-
+## Initializing and Training
+The network class takes in 3 parameters:
+- Number of hidden units
+- Learning rate
+- Batch size
+These values are defaulted to Hidden units = 50, Learning rate = 1e-4 and Batch size = 50
 
 ## Tested Parameters
 - Sigmoid, No deskewing, 300 HU,  Batch size = 50, Learning rate = 1e-4, Accuracy: 98.15%
