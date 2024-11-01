@@ -10,6 +10,8 @@ The network class takes in 3 parameters:
 - Batch size
 These values are defaulted to Hidden units = 50, Learning rate = 1e-4 and Batch size = 50
 
+
+
 ## Tested Parameters
 - Sigmoid, No deskewing, 300 HU,  Batch size = 50, Learning rate = 1e-4, Accuracy: 98.15%
 
