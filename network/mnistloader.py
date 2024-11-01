@@ -3,9 +3,10 @@ import numpy as np
 
 def mnist(deskew=True):
     '''
+    :desc Loads the MNIST dataset
     :param deskew: Returns deskewed data if true otherwise returns default MNIST data
-    Returns train, test
-    The last column is the labels
+    :return train, test
+    The last column in each data is the labels
     '''
     if deskew:
         train = np.load('network/data/train_data_DSK.npy')

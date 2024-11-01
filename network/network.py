@@ -1,40 +1,33 @@
 import numpy as np
+import os
+import sys
+import time
+from activations import ReLU, Sigmoid, ReLU_derivative, Sigmoid_derivative
 np.random.seed(0)
 
 class Network():
-    def __init__(self, learning_rate=1e-4, mini_batch_size=50):
-        self.weight_1 = kaiming_initialization(50, 784)
-        self.weight_2 = kaiming_initialization(10, 50)
+    def __init__(self, hidden_units=50, learning_rate=1e-4, batch_size=50):
+        self.batch_size = batch_size
+        self.learning_rate = learning_rate
+        # initializations
+        self.weight_1 = kaiming_initialization(hidden_units, 784)
+        self.weight_2 = kaiming_initialization(10, hidden_units)
         self.bias_1 = np.zeros((self.weight_1.shape[0], 1))
         self.bias_2 = np.zeros((self.weight_2.shape[0], 1))
-        
 
-        self.mini_batch_size = mini_batch_size
-        self.learning_rate = learning_rate
-
-        # optimizer
+        # optimizers
+        self.fixed_learning_rate = True
         self.m = np.zeros_like(self.unpack_gradient(NABLAS=False))
         self.v = np.zeros_like(self.m)
-        self.previous_accuracy = 0 # for my ghetto optimizer
+        self.previous_accuracy = 0
+
 
     def hidden_layer(self, x):
-        '''
-        x.shape = (784, mini batch size)
-        uses ReLU
-        z1 = (50, mini batch size)
-        a1 = (50, mini batch size)
-        '''
         z1 = np.dot(self.weight_1, x) + self.bias_1
         a1 = ReLU(z1)
         return z1, a1
     
     def output_layer(self, a1):
-        ''''
-        a1.shape = (50, mini_batch_size)
-        uses Sigmoid
-        zout = (10, mini_batch_size)
-        aout = (10, mini_batch_size)
-        '''
         zout = np.dot(self.weight_2, a1) + self.bias_2
         aout = Sigmoid(zout)
         return zout, aout
@@ -46,6 +39,35 @@ class Network():
         z1, a1 = self.hidden_layer(data)
         zout, aout = self.output_layer(a1)
         return z1, a1, zout, aout
+    
+    def epoch(self, epochs, train, test, fixed_learning_rate=True, display=False):
+        '''
+        :param epochs: Amount of epochs to train the network
+        :param train: Training data
+        :param test: Testing data
+            Data should be in shape (number of samples, 785) where the 785th column is the labels
+        :param display: To show the results as it trains
+        '''
+        start = time.time()
+        for i in range(epochs):
+            self.train(train)
+            correct = self.test(test)
+            current_accuracy = correct / len(test) * 100
+
+            if not fixed_learning_rate and current_accuracy < 95:
+                self.update_learning_rate(current_accuracy)
+            self.previous_accuracy = current_accuracy
+
+            if display:
+                if i % np.ceil(epochs * 0.05) == 0 and i != 0:
+                    print("Epoch {}\nAccuracy {:.2f}%".format(i, current_accuracy))
+                    print(f"Learning rate is {self.learning_rate:.2E}")
+                    print("------------------------------")
+            if i == 0:
+                end = time.time()
+                print("Each epoch will take {} seconds".format(int(end - start)))
+        print("Epoch {}\nAccuracy {:.2f}%".format(epochs, current_accuracy))
+        print("------------------------------") 
 
     def train(self, train_data):
         '''
@@ -54,9 +76,9 @@ class Network():
         np.random.shuffle(train_data)
         data, labels = extract_data_labels(train_data)
 
-        for i in range(0, len(data), self.mini_batch_size): # loops through all mini_batches
-            mini_batch = data[i: i + self.mini_batch_size].T # (784, mini batch size)
-            mini_batch_labels = labels[i: i + self.mini_batch_size] # (mini batch size,)
+        for i in range(0, len(data), self.batch_size): # loops through all mini_batches
+            mini_batch = data[i: i + self.batch_size].T
+            mini_batch_labels = labels[i: i + self.batch_size]
 
             nwo, nbo, nwh, nbh = self.train_mini_batch(mini_batch, mini_batch_labels)
             self.update_parameters(nwo, nbo, nwh, nbh)
@@ -66,20 +88,23 @@ class Network():
         return self.backprop(z1, a1, zout, aout, data, label)
     
     def backprop(self, z1, a1, zout, aout, data, label):
-        delta_output = self.cost_derivative_2(aout, label) * Sigmoid_derivative(zout) # (10, mini batch size)
-        delta_hidden = np.dot(self.weight_2.T, delta_output) * ReLU_derivative(z1) # (50, mini batch size)
+        delta_output = self.cost_derivative(aout, label) * Sigmoid_derivative(zout)
+        delta_hidden = np.dot(self.weight_2.T, delta_output) * ReLU_derivative(z1)
 
         # output layer
-        nwo = np.dot(delta_output, a1.T) # (10, 50)
-        nbo = np.mean(delta_output, axis=1, keepdims=True) # (10, 1)
+        nwo = np.dot(delta_output, a1.T)
+        nbo = np.mean(delta_output, axis=1, keepdims=True)
 
         # hidden layer
-        nwh = np.dot(delta_hidden, data.T) # (50, 784)
-        nbh = np.mean(delta_hidden, axis=1, keepdims=True) # (50, 1)
+        nwh = np.dot(delta_hidden, data.T)
+        nbh = np.mean(delta_hidden, axis=1, keepdims=True)
 
         return nwo, nbo, nwh, nbh
 
     def adam(self, g):
+        if self.fixed_learning_rate:
+            return g
+        
         self.m = 0.9 * self.m + 0.1 * g
         self.v = 0.999 * self.v + 0.001 * np.square(g)
 
@@ -99,14 +124,14 @@ class Network():
         self.repack_gradient(theta)
 
     def cost_derivative(self, output, label):
-        y = label_vector(label)
-        return output - y
-    
-    def cost_derivative_2(self, output, label):
         y = self.label_array(label)
         return output - y
     
     def test(self, test):
+        '''
+        :desc Test the network with test data
+        :return Amount of correct guesses by the network
+        '''
         correct = 0
         data, labels = extract_data_labels(test)
         output = self.feed_forward(data.T)[-1].T
@@ -117,39 +142,21 @@ class Network():
         return correct
     
     def use_network(self, input):
+        '''
+        :desc For testing the network with a single input
+        :return Networks guess
+        '''
         return np.argmax(self.feed_forward(input)[-1])
 
-    def epoch(self, epochs, train, test, display=False, fixed_learning_rate=True):
-        '''
-        :param epochs: Amount of epochs to train the network
-        :param train: Training data
-        :param test: Testing data
-            Data should be in shape (number of samples, 785) where the 785th column is the labels
-        :param display: To show the results as it trains
-        '''
-        for i in range(epochs):
-            self.train(train)
-            correct = self.test(test)
-
-            current_accuracy = correct / len(test) * 100
-            if not fixed_learning_rate:
-                self.update_learning_rate(current_accuracy)
-            self.previous_accuracy = current_accuracy
-
-            if display:
-                if i % np.ceil(epochs * 0.05) == 0 and i != 0:
-                    print("Epoch {}\nAccuracy {:.2f}%".format(i, current_accuracy))
-                    print(f"Learning rate is {self.learning_rate:.2E}")
-                    print("------------------------------")
-        print("Epoch {}\nAccuracy {:.2f}%".format(epochs, current_accuracy))
-        print("------------------------------") 
-
     def update_learning_rate(self, current_accuracy):
-            if abs(current_accuracy - self.previous_accuracy) < 0.5:
-                self.learning_rate = self.learning_rate * 1.5
+        '''
+        :desc Boosts the learning rate when the change in accuracy gets too low
+        '''
+        if abs(current_accuracy - self.previous_accuracy) < 0.5:
+            self.learning_rate = self.learning_rate * 1.5
 
     def average_inputs(self, a, b, c, d):
-        return a / self.mini_batch_size, b / self.mini_batch_size, c / self.mini_batch_size, d / self.mini_batch_size
+        return a / self.batch_size, b / self.batch_size, c / self.batch_size, d / self.batch_size
     
     def unpack_gradient(self, wo=None, bo=None, wh=None, bh=None, NABLAS=True):
         '''
@@ -170,43 +177,30 @@ class Network():
         self.bias_1 = g[-self.bias_1.size:].reshape(self.bias_1.shape)
 
     def label_array(self, label):
-        out = np.zeros((self.mini_batch_size, 10))
+        out = np.zeros((label.shape[0], 10))
         for i, x in enumerate(label):
             out[i] = label_vector(x).reshape((10,))
         return out.T
 
 
     def save_parameters(self):
+        create_missing_dir('data\\trained_parameters')
         np.save('network/data/trained_parameters/weights_1.npy', self.weight_1)
         np.save('network/data/trained_parameters/weights_2.npy', self.weight_2)
         np.save('network/data/trained_parameters/bias_1.npy', self.bias_1)
         np.save('network/data/trained_parameters/bias_2.npy', self.bias_2)
 
     def load_parameters(self):
-        self.weight_1 = np.load('network/data/trained_parameters/weights_1.npy')
-        self.weight_2 = np.load('network/data/trained_parameters/weights_2.npy')
-        self.bias_1 = np.load('network/data/trained_parameters/bias_1.npy')
-        self.bias_2 = np.load('network/data/trained_parameters/bias_2.npy')
+        try:
+            self.weight_1 = np.load('network/data/trained_parameters/weights_1.npy')
+            self.weight_2 = np.load('network/data/trained_parameters/weights_2.npy')
+            self.bias_1 = np.load('network/data/trained_parameters/bias_1.npy')
+            self.bias_2 = np.load('network/data/trained_parameters/bias_2.npy')
+        except:
+            print('No saved files to be loaded into the network')
+            sys.exit()
 
-        
-def ReLU(z):
-    return np.maximum(0, z)
 
-def ReLU_derivative(z):
-    return np.where(z > 0, 1, 0)
-
-def leaky_ReLU(z, alpha=0.01):
-    return np.where(z > 0, z, alpha * z)
-
-def leaky_ReLU_derivative(z, alpha=0.01):
-    return np.where(z > 0, 1, alpha)
-
-def Sigmoid(z):
-    return 1 / (1 + np.exp(-z))
-
-def Sigmoid_derivative(z):
-    zsig = Sigmoid(z)
-    return zsig * (1 - zsig) * 100
 
 def label_vector(label):
     out = np.zeros((10,1))
@@ -218,13 +212,6 @@ def kaiming_initialization(n_in, n_out):
     weights = np.random.normal(0, std_dev, (n_in, n_out))
     return weights
 
-def tanh(x):
-    return np.tanh(x)
-
-def tanh_derivative(x):
-    y = np.tanh(x)
-    return 1 - (y ** 2)
-
 def extract_data_labels(x):
     '''
     Returns: data, labels
@@ -232,3 +219,9 @@ def extract_data_labels(x):
     labels = x[:, 784]
     data = x[:, :-1]
     return data, labels
+
+def create_missing_dir(dir):
+    curr_dir = os.path.dirname(os.path.realpath(__file__))
+    dir_to_check = os.path.join(curr_dir + '\\' + dir)
+    if not os.path.isdir(dir_to_check):
+        os.mkdir(dir_to_check)

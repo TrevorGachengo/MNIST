@@ -1,15 +1,24 @@
 import gzip
 import pickle as cPickle
-from scipy.ndimage import affine_transform
 import numpy as np
+import sys
+from scipy.ndimage import affine_transform
 
+
+'''
+This file extracts the training and test data from the original mnist file and save them.
+It will also save copies of the deskewed data. 
+'''
 
 def mnist(deskew):
-    f = gzip.open('network/data/mnist.pkl.gz', 'rb')
-
-    data = cPickle.load(f, encoding='bytes')
-
-    f.close()
+    try:
+        with gzip.open('network/data/mnist.pkl.gz', 'rb') as f:
+            data = cPickle.load(f, encoding='bytes')
+        f.close()
+    except:
+        print('\\data\\mnist.pkl.gz is not found please download the dataset.')
+        sys.exit()
+    
     (train_data, train_labels), (test_data, test_labels) = data
 
     train_data = reshape784(train_data)
@@ -80,6 +89,10 @@ def deskewAll(X):
     for i in range(len(X)):
         currents.append(deskew(X[i].reshape(28, 28)).flatten())
     return np.array(currents)
+
+
+
+
 
 
 train, test = mnist(deskew=False)
