@@ -31,7 +31,15 @@ def signal_handler(sig, frame):
         file_path = os.path.join(save_dir, entry)
         if os.path.isfile(file_path):
             os.remove(file_path)
-    sys.exit(0)
+    sys.exit()
+
+def on_close():
+    for entry in os.listdir(save_dir):
+        file_path = os.path.join(save_dir, entry)
+        if os.path.isfile(file_path):
+            os.remove(file_path)
+    root.destroy()
+    sys.exit()
 
 signal.signal(signal.SIGINT, signal_handler)
 
@@ -56,7 +64,7 @@ def delete_image():
     root.after(100, delete_image)
 
 # Function to predict and update label
-def train_image(network):
+def test_image(network):
     dir = 'network/interfacer/temp-images'
     guesses = []
     for img in os.listdir(dir):
@@ -66,7 +74,7 @@ def train_image(network):
         guesses.append(f"Guess = {guess}")
 
     result_label.config(text="\n".join(guesses))
-    root.after(300, train_image, network)
+    root.after(300, test_image, network)
 
 # Convert image to greyscale 28x28
 def convert_image(image):
@@ -103,7 +111,7 @@ clear_button = Button(root, fg="green", text="Clear", command=lambda: drawing_ar
 clear_button.pack(side=LEFT)
 
 # Label for displaying results
-result_label = Label(root, text="Draw a number and wait for a prediction", font=("Arial", 14))
+result_label = Label(root, font=("Arial", 14))
 result_label.pack(side=TOP, pady=10)
 
 # Start periodic image saving
@@ -111,7 +119,9 @@ save_image()
 delete_image()
 
 # Start predictions
-train_image(net)
+test_image(net)
 
+# Clear temp images on close
+root.protocol("WM_DELETE_WINDOW", on_close)
 # Run the Tkinter main loop
 root.mainloop()
