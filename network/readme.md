@@ -1,4 +1,8 @@
 # How to use the network
+## Loading the dataset
+Start by running the deskewer.py. This file will extract the training and test from the entire dataset file mnist.pkl.gz. It saves copies of the default data and deskewed data.
+
+## Initializing the network
 
 
 ## Tested Parameters
