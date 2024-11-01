@@ -13,9 +13,9 @@
     Accuracy: 97.03% after 100 epochs
 
 - Sigmoid | No deskewing
-    300 HU | Batch size = 50
-    Learning rate = 1e-4
-    Accuracy: 98.15%
+  300 HU | Batch size = 50
+  Learning rate = 1e-4
+  Accuracy: 98.15%
 
 - Sigmoid | No deskewing
     300 HU | Batch size = 50
