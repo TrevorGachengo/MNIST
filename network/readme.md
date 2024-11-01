@@ -8,7 +8,7 @@ The network class takes in 3 parameters:
 - Number of hidden units
 - Learning rate
 - Batch size
-These values are defaulted to Hidden units = 50, Learning rate = 1e-4 and Batch size = 50
+> These values are defaulted to Hidden units = 50, Learning rate = 1e-4 and Batch size = 50
 
 
 
