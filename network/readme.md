@@ -10,6 +10,12 @@ The network class takes in 3 parameters:
 - Batch size
 > These values are defaulted to Hidden units = 50, Learning rate = 1e-4 and Batch size = 50
 
+To train the network use the epoch function which takes in 5 parameters:
+- Epochs: number of iterations to train the network
+- Train data: the data to train the network with
+- Test data: the data to test the network against
+- Fixed learning rate: boolean to decide to change the learning rate or keep it constant.
+- Display: boolean to decide to display the network training or only have it output the final accuracy 
 
 
 ## Tested Parameters
