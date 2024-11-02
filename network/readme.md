@@ -34,4 +34,7 @@ No deskewing:
 Deskewing:
   - 300 HU, Batch size = 600, Learning rate = 1e-4 + Adam with 1.1x when delta accuracy < 0.5, Accuracy: 98.7%
 
-  - 300 HU, Batch size = 2048, Learning rate = 1e-3 + Adam with 1.5x when delta accuracy < 0.5, Accuracy: 98.63% 
+  - 300 HU, Batch size = 2048, Learning rate = 1e-3 + Adam with 1.5x when delta accuracy < 0.5, Accuracy: 98.63%
+
+## Problems and Limitations 
+When using the interfacer the accuracy...
