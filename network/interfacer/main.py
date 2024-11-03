@@ -12,7 +12,7 @@ from network import Network
 
 # Global variables
 root = Tk()
-root.title("focus on yourself")
+root.title("Interfacer")
 b1 = "up"
 xold, yold = None, None
 image_counter = 1
