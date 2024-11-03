@@ -9,7 +9,7 @@
 - Output layer: Sigmoid
 
 ### Optimizer
-- Adam
+- Adam, for efficient gradient descent.
 
 
 ## Motivation for project
@@ -17,7 +17,7 @@ I initially aimed to create a network capable of solving a Rubik's cube, but I r
 
   
 ## References
-- [**The Complete Mathematics of Neural Networks and Deep Learning.**](https://www.youtube.com/watch?v=Ixl3nykKG9M)
+- [**The Complete Mathematics of Neural Networks and Deep Learning**](https://www.youtube.com/watch?v=Ixl3nykKG9M)
 
 - [Neural Networks and Deep Learning Book](http://neuralnetworksanddeeplearning.com/chap1.html)
 - [Digit Classifier Reference Code](https://github.com/kdexd/digit-classifier/blob/master/network.py)
