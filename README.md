@@ -1,7 +1,6 @@
 #  2-Layer Neural Network From Scratch  | MNIST Database 
 
 ## Contents
-_to be added_
 ### Interfacer
 - Opens a canvas where any digit drawn will be guessed by the network.
 
@@ -14,7 +13,7 @@ _to be added_
 
 
 ## Motivation for project
-I used this project as a way to learn not only indepth about neural networks but also python
+I initially wanted to create a network that could solve a Rubik's cube, however I had zero knowledge on how neural networks actually worked. This sparked the idea of creating my own multiclass classification model from scratch without relying on libraries such as Pytorch or Tensorflow. This allowed me to understand the core fundamentals and further develop my problem solving skills.
 
   
 ## References
