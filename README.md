@@ -20,7 +20,7 @@ I initially aimed to create a network capable of solving a Rubik's cube, but I r
 - [**The Complete Mathematics of Neural Networks and Deep Learning**](https://www.youtube.com/watch?v=Ixl3nykKG9M)
 
 - [Neural Networks and Deep Learning Book](http://neuralnetworksanddeeplearning.com/chap1.html)
-- [Digit Classifier Reference Code](https://github.com/kdexd/digit-classifier/blob/master/network.py)
+- [Digit Classifier Reference Code](https://github.com/kdexd/digit-classifier/tree/master)
 
 # How to use the network
 ## Loading the dataset
