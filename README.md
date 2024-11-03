@@ -3,7 +3,7 @@
 ## Contents
 ### Interfacer
 ![image](https://github.com/user-attachments/assets/35aa426b-a663-4bae-a9cc-0364da3649f6)
-- This module opens a canvas that allows users to draw digits, which the network then attempts to classify based on the training it received on the MNIST dataset.
+This module opens a canvas that allows users to draw digits, which the network then attempts to classify based on the training it received on the MNIST dataset.
 
 
 
