@@ -13,7 +13,7 @@
 
 
 ## Motivation for project
-I initially wanted to create a network that could solve a Rubik's cube, however I had zero knowledge on how neural networks actually worked. This sparked the idea of creating my own multiclass classification model from scratch without relying on libraries such as Pytorch or Tensorflow. This allowed me to understand the core fundamentals and further develop my problem solving skills.
+I initially aimed to create a network capable of solving a Rubik's cube, but I realized I had no foundational knowledge of how neural networks actually worked. This led me to the idea of building a multiclass classification model from scratch, without using libraries like PyTorch or TensorFlow. This approach has allowed me to grasp the core fundamentals of neural networks and further develop my problem-solving skills.
 
   
 ## References
