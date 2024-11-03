@@ -2,20 +2,19 @@
 
 ## Contents
 _to be added_
+### Interfacer
+- Opens a canvas where any digit drawn will be guessed by the network.
+
 ### Activation functions
 - Hidden layer: ReLU
 - Output layer: Sigmoid
+
 ### Optimizer
 - Adam
 
-### Stochastic gradient descent (SGD)
-
-### interfacer
-
 
 ## Motivation for project
-_to be added_
-- yt vid and learning
+I used this project as a way to learn not only indepth about neural networks but also python
 
   
 ## References
