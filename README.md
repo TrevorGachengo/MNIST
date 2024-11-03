@@ -51,7 +51,7 @@ To use the network without having to train it again, use save_parameters() and l
 
 save_parameters() will create a folder of numpy arrays under "\network\data\" called trained_parameters.
 
-## Tested Parameters
+## Tested Parameters and Results
 No deskewing: 
   - 300 HU,  Batch size = 50, Learning rate = 1e-4, Accuracy: 98.15%
 
