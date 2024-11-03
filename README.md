@@ -2,7 +2,7 @@
 
 ## Contents
 ### Interfacer
-- Opens a canvas where any digit drawn will be guessed by the network.
+- This module opens a canvas that allows users to draw digits, which the network then attempts to classify based on the training it received on the MNIST dataset.
 
 ### Activation functions
 - Hidden layer: ReLU
