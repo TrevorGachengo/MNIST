@@ -1,12 +1,16 @@
 #  2-Layer Neural Network From Scratch  | MNIST Database 
 
-## Contents / how it works
+## Contents
 _to be added_
-- activation functions
-- optimizer
-- backprop
-- SGD (mini-batch)
-- interfacer
+### Activation functions
+- Hidden layer: ReLU
+- Output layer: Sigmoid
+### Optimizer
+- Adam
+
+### Stochastic gradient descent (SGD)
+
+### interfacer
 
 
 ## Motivation for project
