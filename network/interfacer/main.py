@@ -7,7 +7,7 @@ import numpy as np
 import imageio.v2 as iio
 
 module_dir = os.path.abspath('network')
-sys.path.append(module_dir)
+sys.path.append(os.path.dirname(module_dir))
 from network import Network
 
 # Global variables
@@ -16,7 +16,7 @@ root.title("Interfacer")
 b1 = "up"
 xold, yold = None, None
 image_counter = 1
-save_dir = 'network/interfacer/temp-images'
+save_dir = 'interfacer/temp-images'
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
 
@@ -65,7 +65,7 @@ def delete_image():
 
 # Function to predict and update label
 def test_image(network):
-    dir = 'network/interfacer/temp-images'
+    dir = 'interfacer/temp-images'
     guesses = []
     for img in os.listdir(dir):
         newdir = os.path.join(dir, img)
