@@ -8,10 +8,10 @@ def mnist(deskew=True):
     The last column in each data is the labels
     '''
     if deskew:
-        train = np.load('network/data/train_data_DSK.npy')
-        test = np.load('network/data/test_data_DSK.npy')
+        train = np.load('data/train_data_DSK.npy')
+        test = np.load('data/test_data_DSK.npy')
     else:
-        train = np.load('network/data/train_data.npy')
-        test = np.load('network/data/test_data.npy')
+        train = np.load('data/train_data.npy')
+        test = np.load('data/test_data.npy')
     return train, test
 
