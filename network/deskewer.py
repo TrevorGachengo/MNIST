@@ -31,7 +31,6 @@ def mnist(deskew):
         print("DESKEWING COMPLETED")
         print("**********************")
     else:
-        print("No deskewing")
         train_data = train_data / np.max(train_data)
         test_data = test_data / np.max(test_data)
 
