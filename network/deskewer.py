@@ -11,7 +11,7 @@ It will also save copies of the deskewed data.
 
 def mnist(deskew):
     try:
-        with gzip.open('network/data/mnist.pkl.gz', 'rb') as f:
+        with gzip.open('data/mnist.pkl.gz', 'rb') as f:
             data = cPickle.load(f, encoding='bytes')
         f.close()
     except:
