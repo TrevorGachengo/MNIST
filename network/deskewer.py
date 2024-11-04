@@ -90,5 +90,5 @@ np.save('data/train_data.npy', train)
 np.save('data/test_data.npy', test)
 
 train, test = mnist(deskew=True)
-np.save('network/data/train_data_DSK.npy', train)
-np.save('network/data/test_data_DSK.npy', test)
+np.save('data/train_data_DSK.npy', train)
+np.save('data/test_data_DSK.npy', test)
