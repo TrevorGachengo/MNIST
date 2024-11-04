@@ -87,8 +87,8 @@ def deskewAll(X):
     return np.array(currents)
 
 train, test = mnist(deskew=False)
-np.save('network/data/train_data.npy', train)
-np.save('network/data/test_data.npy', test)
+np.save('data/train_data.npy', train)
+np.save('data/test_data.npy', test)
 
 train, test = mnist(deskew=True)
 np.save('network/data/train_data_DSK.npy', train)
