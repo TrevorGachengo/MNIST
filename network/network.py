@@ -3,7 +3,6 @@ import os
 import sys
 import time
 from activations import ReLU, Sigmoid, ReLU_derivative, Sigmoid_derivative
-np.random.seed(0)
 
 class Network():
     def __init__(self, hidden_units=50, learning_rate=1e-4, batch_size=50):
