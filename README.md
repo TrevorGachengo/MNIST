@@ -12,7 +12,8 @@ This module opens a canvas that allows users to draw digits, which the network t
 - Hidden layer: ReLU
 - Output layer: Sigmoid
 
-Cost function
+### Cost function
+- Mean Squared Error
 
 ### Optimizer
 - Adam, for efficient gradient descent.
