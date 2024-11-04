@@ -17,4 +17,4 @@ def Sigmoid(z):
 
 def Sigmoid_derivative(z):
     zsig = Sigmoid(z)
-    return zsig * (1 - zsig) * 100
+    return zsig * (1 - zsig)
