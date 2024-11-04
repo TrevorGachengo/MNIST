@@ -185,17 +185,17 @@ class Network():
 
     def save_parameters(self):
         create_missing_dir('data\\trained_parameters')
-        np.save('network/data/trained_parameters/weights_1.npy', self.weight_1)
-        np.save('network/data/trained_parameters/weights_2.npy', self.weight_2)
-        np.save('network/data/trained_parameters/bias_1.npy', self.bias_1)
-        np.save('network/data/trained_parameters/bias_2.npy', self.bias_2)
+        np.save('data/trained_parameters/weights_1.npy', self.weight_1)
+        np.save('data/trained_parameters/weights_2.npy', self.weight_2)
+        np.save('data/trained_parameters/bias_1.npy', self.bias_1)
+        np.save('data/trained_parameters/bias_2.npy', self.bias_2)
 
     def load_parameters(self):
         try:
-            self.weight_1 = np.load('network/data/trained_parameters/weights_1.npy')
-            self.weight_2 = np.load('network/data/trained_parameters/weights_2.npy')
-            self.bias_1 = np.load('network/data/trained_parameters/bias_1.npy')
-            self.bias_2 = np.load('network/data/trained_parameters/bias_2.npy')
+            self.weight_1 = np.load('data/trained_parameters/weights_1.npy')
+            self.weight_2 = np.load('data/trained_parameters/weights_2.npy')
+            self.bias_1 = np.load('data/trained_parameters/bias_1.npy')
+            self.bias_2 = np.load('data/trained_parameters/bias_2.npy')
         except:
             print('No saved files to be loaded into the network')
             sys.exit()
