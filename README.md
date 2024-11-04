@@ -2,7 +2,9 @@
 
 ## Contents
 ### Interfacer
-![image](https://github.com/user-attachments/assets/35aa426b-a663-4bae-a9cc-0364da3649f6)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/35aa426b-a663-4bae-a9cc-0364da3649f6?raw=true" alt="Sublime's custom image"/>
+</p>
 
 This module opens a canvas that allows users to draw digits, which the network then attempts to classify based on the training it received on the MNIST dataset.
 
@@ -69,3 +71,7 @@ Deskewing:
 
 ## Problems and Limitations 
 When using the Interfacer the accuracy doesn't quite match with the value you get when the network is trained. This discrepancy is due to the difference in image properties between the images used to train the network and the images from the Interfacer. The images used to train the network have the number centered in the middle of the image, when drawing on the canvas the number may not be perfectly in the center. In addition, the method used to reshape the image may not be 100% accurate leading to a lower accuracy.
+
+
+
+
